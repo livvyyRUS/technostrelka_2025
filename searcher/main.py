@@ -30,7 +30,7 @@ class MovieSearchEngine:
     """
 
     def __init__(self, api_url: str, model_name: str = "distiluse-base-multilingual-cased-v1",
-                 cache_path: str = "movies_cache.pkl"):
+                 cache_path: str = "data/movies_cache.pkl"):
         """
         :param api_url: URL API, с которого будут загружаться фильмы (например, "http://localhost:8000").
         :param model_name: название модели для SentenceTransformer.

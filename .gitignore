@@ -3,6 +3,10 @@
 /searcher/.venv
 /.idea
 
+/app/.idea
+/database/.idea
+/searcher/.idea
+
 /searcher/movies_cache_new.pkl
 /searcher/movies_cache.pkl
 

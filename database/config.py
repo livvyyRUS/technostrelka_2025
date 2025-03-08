@@ -1,3 +1,3 @@
-tmdb_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2YzZiZmM3MjQyYTY5MDAyOTM2NTgwNTBhZTJmYjE5MiIsIm5iZiI6MTczODU5NTgwMS4yMiwic3ViIjoiNjdhMGRkZDk0MjhmY2M0YTUyOTUzM2NiIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.IxF3vWukZQTVfPg7jy5yNVLnVI-haTDdLN0vnP7luUE"
+tmdb_token = "токен тмдб"
 
-tmdb_key = "6c6bfc7242a6900293658050ae2fb192"
+tmdb_key = "ключ тмдб"
