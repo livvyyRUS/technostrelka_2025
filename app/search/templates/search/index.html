@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НЕкинопоиск</title>
+    <style>
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+          color: #333;
+          padding: 20px;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .container {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          max-width: 1200px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        h1 {
+          text-align: left;
+          color: #444;
+          font-size: 2.5em;
+          margin: 0;
+          font-weight: 700;
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          flex-shrink: 1;
+          white-space: nowrap;
+        }
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        .profile-icon {
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          color: #fff;
+          border: none;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          font-size: 1.2em;
+          transition: transform 0.3s, box-shadow 0.3s;
+          flex-shrink: 0;
+        }
+        .profile-icon:hover {
+          transform: scale(1.1);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .profile-icon:active {
+          transform: scale(1);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .search-button {
+          background: linear-gradient(135deg, #6a11cb, #2575fc);
+          color: #fff;
+          border: none;
+          width: calc(100% - 40px);
+          padding: 12px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 1em;
+          transition: transform 0.3s, box-shadow 0.3s;
+          margin: 10px 20px;
+        }
+        .search-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .search-button:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .recommendation-list {
+          list-style-type: none;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+        }
+        .recommendation-list li {
+          background-color: #fff;
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s, box-shadow 0.3s;
+          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        .recommendation-list li::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+          transition: left 0.5s;
+        }
+        .recommendation-list li:hover::before {
+          left: 100%;
+        }
+        .recommendation-list li:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .recommendation-list li:active {
+          transform: translateY(0);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .recommendation-list li img {
+          width: 100%;
+          height: 400px;
+          border-radius: 15px;
+          object-fit: contain;
+          background-color: #f0f0f0;
+          margin-bottom: 25px;
+          border: 3px solid #fff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .recommendation-list li h2 {
+          margin: 0;
+          font-size: 1.8em;
+          color: #444;
+          font-weight: 600;
+        }
+        .recommendation-list li p {
+          margin: 15px 0 0;
+          color: #777;
+          font-size: 1.1em;
+        }
+        .recommendation-list li .icon {
+          margin-top: 20px;
+          font-size: 24px;
+          color: #6a11cb;
+          transition: color 0.3s;
+        }
+        .recommendation-list li:hover .icon {
+          color: #2575fc;
+        }
+        @media (max-width: 768px) {
+          h1 { font-size: 2em; }
+          .recommendation-list li img { height: 300px; }
+        }
+        @media (max-width: 480px) {
+          h1 { font-size: 1.5em; }
+          .recommendation-list li img { height: 250px; }
+        }
+        a {
+            text-decoration: none;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 80%; /* Увеличиваем ширину поля ввода */
+            padding: 12px;
+            border: 2px solid #6a11cb;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-right: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .search-button {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 20%; /* Уменьшаем ширину кнопки */
+        }
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .search-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <a href="/1">
+            <h1>НЕкинопоиск</h1>
+        </a>
+    </div>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Напишите описание фильма" value="{{ text }}">
+        <button class="search-button">Найти</button>
+    </div>
+    <ul class="recommendation-list">
+        {% for item in recommendations %}
+        <li>
+            <a href="/movie/{{ item.id }}">
+                <img src="{% static item.image_url %}" alt="{{ item.title }}">
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.description }}</p>
+                <span class="icon"><i class="fas fa-arrow-right"></i></span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<script>
+    const searchInput = document.querySelector('.search-input');
+    const searchButton = document.querySelector('.search-button');
+    const profileIcon = document.querySelector('.profile-icon');
+
+    // Функция для выполнения поиска
+    function performSearch() {
+        window.location.replace("http://{{ ip_address }}/search?text=" + searchInput.value);
+    }
+
+    // Обработчик для кнопки поиска
+    searchButton.addEventListener('click', performSearch);
+
+    // Обработчик для нажатия Enter в поле ввода
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // Обработчик для иконки профиля
+    /* profileIcon.addEventListener('click', () => {
+        alert('Профиль открыт!');
+    }); */
+
+    // Функция для уменьшения текста, если он не помещается
+    function adjustFontSize() {
+        const input = searchInput;
+        const placeholderText = input.getAttribute('placeholder');
+        const tempSpan = document.createElement('span');
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.whiteSpace = 'nowrap';
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.fontSize = window.getComputedStyle(input).fontSize;
+        tempSpan.style.fontFamily = window.getComputedStyle(input).fontFamily;
+        tempSpan.innerText = placeholderText;
+        document.body.appendChild(tempSpan);
+
+        // Уменьшаем размер шрифта, пока текст не поместится
+        while (tempSpan.offsetWidth > input.offsetWidth && parseFloat(window.getComputedStyle(input).fontSize) > 10) {
+            const currentSize = parseFloat(window.getComputedStyle(input).fontSize);
+            input.style.fontSize = `${currentSize - 1}px`;
+        }
+
+        document.body.removeChild(tempSpan);
+    }
+
+    // Вызываем функцию при загрузке страницы и изменении размера окна
+    window.addEventListener('load', adjustFontSize);
+    window.addEventListener('resize', adjustFontSize);
+</script>
+</body>
+</html>

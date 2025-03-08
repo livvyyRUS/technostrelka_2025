@@ -1,0 +1,10 @@
+/app/.venv
+/database/.venv
+/searcher/.venv
+/.idea
+
+/searcher/movies_cache_new.pkl
+/searcher/movies_cache.pkl
+
+/database/create_tables.sql
+/database/data/tmdb_database.db
